@@ -7,14 +7,14 @@ func GetPivotElements(arr []int) []int {
 	if length < 3 {
 		return []int{}
 	}
+
 	minIndex := make([]int, length)
-	minIndex[length-1] = arr[length-1]
-	for i := length - 2; i >= 0; i-- {
-		if arr[i] < minIndex[i+1] {
-			minIndex[i] = arr[i]
-		} else {
-			minIndex[i] = minIndex[i+1]
+	min := arr[length-1]
+	for i := length - 1; i >= 0; i-- {
+		if arr[i] < min {
+			min = arr[i]
 		}
+		minIndex[i] = min
 	}
 
 	var ret []int
