@@ -84,4 +84,24 @@ ifconfig、ping、talnet……</font>
 
 * <font color=red><b>异步IO（asynchronous IO）：</b>POSIX中的异步IO定义是—— An asynchronous I/O operation does not cause the requesting process to be blocked。在linux异步IO中，用户进程发起read操作之后，直接返回，去做其它的事。而另一方面，从kernel的角度，当它受到一个asynchronous read之后，kernel会等待数据准备完成，然后将数据拷贝到用户内存，当这一切都完成之后，kernel会给用户进程发送一个signal，告诉它read操作完成了。也就是说两个阶段都不会阻塞线程。它就像是用户进程将整个IO操作交给了他人（kernel）完成，然后他人做完后发信号通知。在此期间，用户进程不需要去检查IO操作的状态，也不需要主动的去拷贝数据。</font>
 
+### 8、进程与线程的区别
+
+* 进程，在一定的环境下，把静态的程序代码运行起来，通过使用不同的资源，来完成一定的任务。
+* 而线程是进程的一部分，是cpu调度的最小单位，线程主抓cpu执行代码的过程，其余的资源的保护和管理由整个进程去完成。
+* 线程自己不拥有系统资源，只拥有一点在运行中必不可少的资源(运行栈和程序计数器pc)，切换开销小
+* 一个进程中的多个线程可以共享进程所拥有的全部资源。
+
+### 9、进程间的通信方式有哪些？
+
+进程间通信的方式有：
+
+1. 管道（包括无名管道pipe和命名管道FIFO） 
+2. 消息队列
+3. 共享内存 
+4. Socket
+5. Streams等 
+   
+其中 Socket和Streams支持不同主机上的两个进程IPC（InterProcess Communication）。
+
+
 
