@@ -1,4 +1,35 @@
-### 1、slice底层怎么实现的？怎么扩容的？是在堆上还是栈上？
+
+
+### 1、简单说说协程底层原理 GPM 模型
+
+![](https://github.com/SongLee24/LeetCode-Go/blob/main/%E5%85%AB%E8%82%A1%E6%96%87/images/go-GPM1.png?raw=true)
+
+![](https://github.com/SongLee24/LeetCode-Go/blob/main/%E5%85%AB%E8%82%A1%E6%96%87/images/go-GPM2.jpeg?raw=true)
+
+参考：https://learnku.com/articles/41728
+
+### 2、哪些方式可以实现线程安全的 map
+
+* map+读写锁
+* sync.Map
+
+参考：https://zhuanlan.zhihu.com/p/449078860
+
+### 3、golang 闭包
+
+闭包其实就是匿名函数的调用
+
+## 基础
+
+### 1、golang 中 make 和 new 的区别？
+
+简单的说，new只分配内存，make用于slice，map，和channel的初始化。
+
+* make和new都是golang用来分配内存的內建函数，且在堆上分配内存，make 即分配内存，也初始化内存。new只是将内存清零，并没有初始化内存。
+* make返回的还是引用类型本身；而new返回的是指向类型的指针。
+* make只能用来分配及初始化类型为slice，map，channel的数据；new可以分配任意类型的数据。
+
+### 2、slice底层怎么实现的？怎么扩容的？是在堆上还是栈上？
 
 切片(slice)是 Golang 中一种比较特殊的数据结构，这种数据结构更便于使用和管理数据集合。切片是围绕动态数组的概念构建的，可以按需自动增长和缩小。
 
@@ -22,28 +53,18 @@ go语言中的容器类型，包括Slice、Map、Heap、List、Ring，底层存�
 
 参考：https://blog.csdn.net/stpeace/article/details/100695000
 
-### 2、变量在什么情况下会逃逸
+### 3、数组和切片的区别？
+
+* 定义方式不一样
+* 初始化方法不一样：
+    * 数组需要指定大小，不指定也会根据初始化的自动推算出大小，不可改变
+    * 切片不需要指定大小。
+* 函数传递方式不同：数组是值传递，切片是地址传递。
+
+### 4、变量在什么情况下会逃逸
 
 参考：https://zhuanlan.zhihu.com/p/441593663
 
-### 3、简单说说协程底层原理 GPM 模型
-
-![](https://github.com/SongLee24/LeetCode-Go/blob/main/%E5%85%AB%E8%82%A1%E6%96%87/images/go-GPM1.png?raw=true)
-
-![](https://github.com/SongLee24/LeetCode-Go/blob/main/%E5%85%AB%E8%82%A1%E6%96%87/images/go-GPM2.jpeg?raw=true)
-
-参考：https://learnku.com/articles/41728
-
-### 4、哪些方式可以实现线程安全的 map
-
-* map+读写锁
-* sync.Map
-
-参考：https://zhuanlan.zhihu.com/p/449078860
-
-### 5、golang 闭包
-
-闭包其实就是匿名函数的调用
 
 
 
