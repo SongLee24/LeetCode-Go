@@ -91,7 +91,7 @@ channel使用的注意事项：
 * 如果从 channel 取出数据后，可以继续放入。
 * 在没有使用协程的情况下，如果 channel 数据取完了，再取，就会报 dead lock。
 
-参考：https://www.zhangshengrong.com/p/P71Moz3VNd/
+参考：https://www.cnblogs.com/jiujuan/p/16014608.html
 
 ### 4、向 channel 发送数据和从 channel 读数据的流程是什么样的？
 
