@@ -81,7 +81,27 @@ Golang的Channel,发送一个数据到Channel 和 从Channel接收一个数据�
 而且Go的设计思想就是:不要通过共享内存来通信，而是通过通信来共享内存，前者就是传统的加锁，后者就是Channel。
 也就是说，设计Channel的主要目的就是在多任务间传递数据的，这当然是安全的。
 
+channel操作分为四部分：创建、发送、接收和关闭。其中 发送、接收 会对 hchan 加锁。
+
 ### 2、go channel 的底层实现原理 （数据结构）
+
+```
+type hchan struct {
+    qcount   uint           // 循环队列中数据数
+    dataqsiz uint           // 循环队列的大小
+    buf      unsafe.Pointer // 指向大小为dataqsize的包含数据元素的数组指针
+    elemsize uint16         // 数据元素的大小
+    closed   uint32         // 代表channel是否关闭   
+    elemtype *_type         // _type代表Go的类型系统，elemtype代表channel中的元素类型
+    sendx    uint           // 发送索引号，初始值为0
+    recvx    uint           // 接收索引号，初始值为0
+  recvq    waitq          // 接收等待队列，存储试图从channel接收数据(<-ch)的阻塞goroutines
+    sendq    waitq          // 发送等待队列，存储试图发送数据(ch<-)到channel的阻塞goroutines
+
+    lock mutex              // 加锁能保护hchan的所有字段，包括waitq中sudoq对象
+}
+```
+参考：https://zhuanlan.zhihu.com/p/312041083
 
 ### 3、nil、关闭的 channel、有数据的 channel，再进行读、写、关闭会怎么样？（各类变种题型）
 
