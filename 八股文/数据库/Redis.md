@@ -1,3 +1,5 @@
+> https://blog.51cto.com/lxw1844912514/2942444
+
 ### 1、redis支持哪些数据类型？
 
 Redis支持五种数据类型：
