@@ -97,3 +97,36 @@ Redis持久化是把内存中的数据同步到硬盘文件中，当Redis重启�
     2. 如果缓存服务down机，服务降级
 
 参考：https://blog.csdn.net/lzy194/article/details/122231010
+
+### 11、Redis常用管理命令
+
+```
+set key value 设置值
+mset key1 value1 key2 value2  批量设置值
+setnx key value  键必须不存在，才能设置成功，用于添加
+set key value xx 键必须存在，才能设置成功，用于更新
+get key  获取值
+mget key1 key2  批量获取值
+
+keys * 查看所有键
+exists key 检查键是否存在
+del key 删除键
+expire key seconds  设置过期时间
+ttl key  查看还剩多久过期
+type key 查看键的数据结构类型
+
+dbsize 返回当前数据库 key 的数量。
+info 返回当前 redis 服务器状态和一些统计信息。
+monitor 实时监听并返回redis服务器接收到的所有请求信息。 
+shutdown 把数据同步保存到磁盘上，并关闭redis服务。
+config get parameter 获取一个 redis 配置参数信息。（个别参数可能无法获取）
+config set parameter value 设置一个 redis 配置参数信息。（个别参数可能无法获取）
+config resetstat 重置 info 命令的统计信息。（重置包括：keyspace 命中数、
+keyspace 错误数、 处理命令数，接收连接数、过期 key 数）
+debug object key 获取一个 key 的调试信息。
+debug segfault 制造一次服务器当机。
+flushdb 删除当前数据库中所有 key,此方法不会失败。小心慎用
+flushall 删除全部数据库中所有 key，此方法不会失败。小心慎用
+```
+
+
