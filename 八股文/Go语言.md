@@ -6,6 +6,20 @@
 
 ![](https://github.com/SongLee24/LeetCode-Go/blob/main/%E5%85%AB%E8%82%A1%E6%96%87/images/go-GPM2.jpeg?raw=true)
 
+调度器的设计策略：复用线程 ——> 避免频繁的创建、销毁线程，而是对线程的复用。
+
+1. work stealing机制 
+   * 当本线程无可运行的G时，尝试从其他线程绑定的P偷取G，而不是销毁线程。
+
+2. hand off机制 
+   * 当本线程因为G进行系统调用阻塞时，线程释放绑定的P，把P转移给其他空闲的线程执行。
+
+利用并行： GOMAXPROCS 设置P的数量，最多有 GOMAXPROCS 个线程分布在多个CPU上同时运行。 GOMAXPROCS 也限制了并发的程度，比如 GOMAXPROCS = 核数/2 ，则最多利用了一半的CPU核进行并行。
+
+抢占：在coroutine中要等待一个协程主动让出CPU才执行下一个协程，在Go中，一个goroutine最多占用CPU 10ms，防止其他goroutine被饿死，这就是goroutine不同于coroutine的一个地方。
+
+全局G队列：在新的调度器中依然有全局G队列，但功能已经被弱化了，当M执行work stealing从其他P偷不到G时，它可以从全局G队列获取G。
+
 参考：https://learnku.com/articles/41728
 
 ### 2、哪些方式可以实现线程安全的 map
